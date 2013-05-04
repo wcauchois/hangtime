@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hangtime</title>
+    {{#scripts}}
+      <script src="{{src}}" type="text/javascript"></script>
+    {{/scripts}}
+    {{#styles}}
+      <link rel="stylesheet" href="{{href}}" />
+    {{/styles}}
+    <script type="text/javascript">goog.require('hangtime.client.core');</script>
+    <script>
+      $(document).ready(hangtime.client.core.initialize);
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
+
