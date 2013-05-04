@@ -3,17 +3,23 @@
   (:use-macros [dommy.macros :only [sel sel1 node deftemplate]]))
 
 (deftemplate chrome [body]
-  [:div {:class "container"}
-   [:div {:class "navbar navbar-inverse"}
-    [:div {:class "navbar-inner"}
-     [:div {:class "container"}
-      [:a {:class "brand" :href "/"} "Hangtime"]
-      [:ul {:class "nav"}]]
+  [:div.container
+   [:div.navbar.navbar-inverse
+    [:div.navbar-inner
+     [:div.container
+      [:a.brand {:href "/"} "Hangtime"]
+      [:ul.nav]]
      ]]
-   body])
+   body
+   [:div.row
+    [:div.span12 {:style {:text-align "center"}}
+     [:a {:href "/#about"} "About"]
+     [:strong " ⋅ "]
+     [:a {:href "https://twitter.com/wcauchois"} "@wcauchois"]
+     ]]])
 
 (defn ^:export initialize []
   (dommy/append!
     (sel1 :body)
-    (chrome "hello world")))
+    (chrome js/location.hash)))
 

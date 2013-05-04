@@ -5,7 +5,8 @@
                  [aleph "0.3.0-SNAPSHOT"]
                  [compojure "1.1.5"]
                  [de.ubercode.clostache/clostache "1.3.1"]
-                 [prismatic/dommy "0.1.0"]]
+                 [prismatic/dommy "0.1.0"]
+                 [hiccup "1.0.3"]]
   :main hangtime.server.core
   :aot [hangtime.server.core]
   :cljsbuild {:builds
