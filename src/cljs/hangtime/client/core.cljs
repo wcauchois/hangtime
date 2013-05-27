@@ -1,5 +1,6 @@
 (ns hangtime.client.core
-  (:require [dommy.core :as dommy])
+  (:require [dommy.core :as dommy]
+            [hangtime.crossover.util :as util])
   (:use-macros [dommy.macros :only [sel sel1 node deftemplate]]))
 
 (deftemplate chrome [body]
