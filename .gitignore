@@ -1,4 +1,4 @@
 *.swp
-resources/public/gen
+resources/gen
 target
 .lein-repl-history

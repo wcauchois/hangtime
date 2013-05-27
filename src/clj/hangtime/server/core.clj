@@ -15,7 +15,7 @@
    "/goog/base.js"
    "/scripts/jquery.min.js"
    "/scripts/bootstrap.min.js"
-   "/gen/app.js"])
+   "/app.js"])
 
 (def root-styles
   ["/styles/bootstrap-combined.min.css"])
@@ -34,13 +34,11 @@
 (defn http-handler [channel request]
   (let [request-path (.substring (:uri request) 1) ; Eliminate the leading "/"
         public-resource (io/resource (path-join "public" request-path))
-        closure-dirs ["/gen/" "/closure-library/closure/"]
-        goog-resource
-        (and (.startsWith request-path "goog")
-             (some identity
-                   (map (comp io/resource #(path-join % request-path))
-                        closure-dirs)))
-        resource (or public-resource goog-resource)]
+        resource-dirs ["closure-library/closure" "gen" "public"]
+        resource
+        (some identity
+              (map (comp io/resource #(path-join % request-path))
+                   resource-dirs))]
     (cond
       (.isEmpty request-path)
       (enqueue channel
@@ -67,7 +65,4 @@
   (-> "hangtime" mg/get-db mg/set-db!)
   (start-http-server http-handler {:port 3000})
   (println "Started server"))
-
-(defn nailMain [context]
-  (print "HEY WHAT"))
 

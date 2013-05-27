@@ -14,8 +14,8 @@
               [{:source-paths ["src/cljs"]
                 :id "dev"
                 :compiler {:pretty-print true
-                           :output-dir "resources/public/gen"
-                           :output-to "resources/public/gen/app.js"
+                           :output-dir "resources/gen"
+                           :output-to "resources/gen/app.js"
                            :optimizations :none}
                 :crossover-path "crossover-cljs"
                 :crossover-jar false

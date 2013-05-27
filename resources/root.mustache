@@ -8,7 +8,7 @@
     {{#styles}}
       <link rel="stylesheet" href="{{href}}" />
     {{/styles}}
-    <script type="text/javascript">goog.require('hangtime.client.core');</script>
+    <script type="text/javascript">goog.require('hangtime.client.core');goog.require('goog.net.WebSocket');</script>
     <script>
       $(document).ready(hangtime.client.core.initialize);
     </script>
