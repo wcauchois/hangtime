@@ -10,9 +10,7 @@
            [java.net URLConnection]))
 
 (def root-scripts
-  [;"/gen/goog/base.js"
-   ;"/closure-library/closure/goog/base.js"
-   "/goog/base.js"
+  ["/goog/base.js"
    "/scripts/jquery.min.js"
    "/scripts/bootstrap.min.js"
    "/app.js"])
