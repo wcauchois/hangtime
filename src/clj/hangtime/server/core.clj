@@ -34,7 +34,7 @@
 (defn http-handler [channel request]
   (let [request-path (.substring (:uri request) 1) ; Eliminate the leading "/"
         public-resource (io/resource (path-join "public" request-path))
-        resource-dirs ["closure-library/closure" "gen" "public"]
+        resource-dirs ["closure" "gen" "public"]
         resource
         (some identity
               (map (comp io/resource #(path-join % request-path))
