@@ -1,3 +1,3 @@
-[submodule "resources/closure-library"]
-	path = resources/closure-library
+[submodule "third_party/closure_library"]
+	path = third_party/closure_library
 	url = https://code.google.com/p/closure-library/
