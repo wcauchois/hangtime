@@ -2,6 +2,7 @@
   :source-paths ["src/clj"]
   :plugins [[lein-cljsbuild "0.3.0"]]
   :dependencies [[org.clojure/clojure "1.5.0"]
+                 [lamina "0.5.0-rc3"]
                  [aleph "0.3.0-SNAPSHOT"]
                  [de.ubercode.clostache/clostache "1.3.1"]
                  [prismatic/dommy "0.1.0"]

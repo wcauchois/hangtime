@@ -7,10 +7,11 @@
             [clojure.string :as string])
   (:use [lamina.core]
         [aleph.http]
-        [clostache.parser :only [render-resource]])
+        [clostache.parser :only [render-resource]]
+        [monger.util :only [object-id]]
+        [hangtime.server.router :only [defrouter]])
   (:import [java.io File]
-           [java.net URLConnection]
-           [java.util.regex Pattern]))
+           [java.net URLConnection]))
 
 (def root-scripts
   ["/goog/base.js"
@@ -63,44 +64,6 @@
 (defn handle-events [params data] (prn data) (flush) :waat)
 (defn handle-event [params data] (prn (:id params) data) (flush) :dawgg)
 
-(defn path-regex [path-spec]
-  (string/join "/" (map (fn [part]
-                          (if (.startsWith part ":") "(.*?)" part))
-                        (string/split path-spec #"/"))))
-
-(defn extract-params [path-spec]
-  (->> (string/split path-spec #"/")
-    (filter #(.startsWith % ":"))
-    (map (comp keyword #(.substring % 1)))))
-
-(defn router [matcher compiled-routes]
-  (fn [path & more]
-    (->> compiled-routes
-      (map (fn [[regex param-names handler]]
-             (let [matches (matcher regex path)]
-               (if matches
-                 (let [params (zipmap param-names matches)]
-                   (or (apply handler (cons params more)) true))))))
-      (some identity))))
-
-(defn regex-compiler [s]
-  (Pattern/compile s))
-
-(defn regex-matcher [pattern s]
-  (let [matcher (.matcher pattern s)]
-    (and (.matches matcher)
-         (map #(.group matcher %)
-              (range 1 (+ 1 (.groupCount matcher)))))))
-
-(defmacro defrouter [name & routes]
-  `(def ~name
-     (let [compiled-routes#
-           (map (fn [[path-spec# handler#]]
-                  [(regex-compiler (path-regex path-spec#))
-                   (extract-params path-spec#)
-                   handler#]) (vector ~@routes))]
-       (router regex-matcher compiled-routes#))))
-
 (defrouter
   api-router
   ["/events" handle-events]
@@ -118,4 +81,3 @@
   (start-http-server http-handler {:port 3000})
   (start-http-server websocket-handler {:port 4000 :websocket true})
   (println "Started server"))
-
